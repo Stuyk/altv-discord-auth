@@ -29,11 +29,12 @@ This does require opening an additional port for express server purposes.
 In your base gamemode directory where your `.exe` or `alt-server` files are. Simply run these commands.
 
 ```
-npm install dotenv
-npm install discord.js
 npm install axios
-npm install express
 npm install cors
+npm install discord.js
+npm install dotenv
+npm install download
+npm install express
 npm install sjcl
 ```
 
