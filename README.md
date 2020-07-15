@@ -1,4 +1,4 @@
-![](https://i.imgur.com/NXXUOiP.jpg)
+[![](https://i.imgur.com/qzftIlN.jpg)](https://www.youtube.com/watch?v=eJfpeqqeUEY)
 
 # alt:V - Discord Authentication with Toggleable Whitelist
 
@@ -44,8 +44,16 @@ npm install express
 npm install sjcl
 ```
 
-After simply add the name of this resource to your `server.cfg` resource section.
+After simply add the name of this resource to your `server.cfg` resource section. It must be named exactly like this.
+
+`altv-discord-auth`
+
 Then simply clone this repository into your main server resources folder.
+
+```
+cd resources
+git clone https://github.com/Stuyk/altv-discord-auth
+```
 
 # Port Forward
 
