@@ -12,11 +12,15 @@ https://github.com/sponsors/Stuyk/
 
 If you ever wanted to go with a passwordless login or authentication method. This is allows you to utilize Discord to help with user logins by utilize the oAuth2 Service provided by Discord.
 
-This also comes with an optional whitelist where you can give players a `role` in order to get into the server.
+This was meant to be as intuitive as possible but also as secure as we can make it. Which means we utilize an express server to help mitigate fake client-side data.
 
-This was meant to be as intuitive as possible but also as secure as we can make it.
+This resource requires opening port `7790`.
 
-This does require opening an additional port for express server purposes.
+This resource requires a Discord Developer Application. (Free)
+
+If you plan on using the whitelist it requires a Discord Bot. (Free)
+
+This also comes with an optional whitelist where you can give players a `role` in order to get into the server. The whitelist automatically updates when you add or remove a role from the user. It also automatically re-parses the whitelist every `60` seconds.
 
 # Prerequisites
 
@@ -63,17 +67,26 @@ You will need to add a specific file path to the oAuth2 bot. This setting can be
 
 **Make sure to save!**
 
+# Inviting Your Bot
+
+You simply visit the oAuth2 section of the discord developers application. Tick `bot` in scopes. Then tick `administrator` in bot permissions (optional just make sure your bot can see all users). After you copy the link and paste it in your browser.
+
+![](https://i.imgur.com/f2yKXnf.jpeg)
+
 # Updating Environment Variables
+
+### MAKE SURE TO READ ALL OF THIS. IT'S VERY IMPORTANT.
 
 Open your `.env` file which should be located in the same directory as your `altv-server` file. Running this resource without the `.env` will generate it automatically. If you are not sure what a `.env` file is please use google.
 
 ```
-ENABLE_WHITELIST=
-CLIENT_ID=
-CLIENT_SECRET=
+ENABLE_WHITELIST=false
+CLIENT_ID=<client_id>
+CLIENT_SECRET=<client_secret>
 BOT_SECRET=
 SERVER_ID=
 ROLE_WHITELIST_ID=
+REDIRECT_IP=127.0.0.1
 ```
 
 Anything marked with \* is OPTIONAL.
@@ -86,25 +99,42 @@ This will automatically default to false. Meaning it will not turn on the whitel
 
 Set this to true to enable the whitelist.
 
+```
+ENABLE_WHITELIST=true
+ENABLE_WHITELIST=false
+```
+
 ## CLIENT_ID
 
 This can be found under the general information of the discord developers app. Copy the ID that is in plain text.
 
+![](https://i.imgur.com/m60sbzE.jpg)
+
 ## CLIENT_SECRET
 
-This can be found under the general information of the discord developers app. Reveal or cop the secret.
+This can be found under the general information of the discord developers app. Reveal or copy the secret.
+
+![](https://i.imgur.com/gSKTJBt.jpg)
 
 ## REDIRECT_IP
 
+### Running Locally?
+
 If you are running your server locally and just for yourself. Use localhost.
+
+`ie. 127.0.0.1`
+
+### Running in Production?
 
 If you are running your server for players to join use the IP for your machine.
 
-Ensure you port forward 7790.
+Ensure you port forward 7790 in your router, firewall, etc.
 
 ## BOT_SECRET \*
 
 This can be found under the bot section of the discord developers app. Copy the secret for your bot.
+
+![](https://i.imgur.com/dk38pVl.jpg)
 
 ## SERVER_ID \*
 

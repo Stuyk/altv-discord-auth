@@ -18,7 +18,7 @@ let allValid = true;
 
 if (!fs.existsSync('.env')) {
     console.error(`Missing '.env' in your base server directory. Please edit variables.`);
-    console.error(`We have gone ahead and created the file for you.`);
+    console.error(`File was created the file for you.`);
 
     for (let i = 0; i < envFileVariables.length; i++) {
         const variable = envFileVariables[i];

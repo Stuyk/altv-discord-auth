@@ -4,15 +4,15 @@ import axios from 'axios';
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
-
-const app = express();
-app.use(cors());
-app.get('/authenticate', handleMainRedirect);
+import { isWhitelistOn, isWhitelisted } from './bot';
 
 const htmlPath = path.join(alt.getResourcePath('altv-discord-auth'), 'server/html');
 const stylesPath = path.join(alt.getResourcePath('altv-discord-auth'), 'server/html/styles');
 const jsPaths = path.join(alt.getResourcePath('altv-discord-auth'), 'server/html/js');
+const app = express();
 
+app.use(cors());
+app.get('/authenticate', handleMainRedirect);
 app.use('/js', express.static(jsPaths));
 app.use('/styles', express.static(stylesPath));
 
@@ -39,7 +39,7 @@ async function handleMainRedirect(req, res) {
     });
 
     if (!request.data || !request.data.access_token) {
-        res.send(`Failed`);
+        res.sendFile(path.join(htmlPath, '/error.html'), err => {});
         return;
     }
 
@@ -58,10 +58,17 @@ async function handleMainRedirect(req, res) {
 
     // id, username, avatar, discriminator, public_flags, flags, locale, mfa_enabled
     const player = [...alt.Player.all].find(player => player.token === userToken);
-
     if (!player || !player.valid) {
-        res.send(`Are you in-game?`);
+        res.sendFile(path.join(htmlPath, '/error.html'), err => {});
         return;
+    }
+
+    if (isWhitelistOn()) {
+        const isAuthorized = isWhitelisted(request.data.id);
+        if (!isAuthorized) {
+            res.sendFile(path.join(htmlPath, '/whitelist.html'), err => {});
+            return;
+        }
     }
 
     alt.emitClient(player, 'discord:AuthExit');
