@@ -1,35 +1,29 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
-        <link href="style.css" rel="stylesheet" type="text/css" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Discord Auth by Stuyk</title>
+        <link rel="stylesheet/less" type="text/css" href="style.less" />
     </head>
     <body>
-		<div style="display: flex;
-					flex-direction: column;
-					height: 100vh;
-					justify-content: center;
-					align-items: center;
-					background: url('./img/background.jpg');
-					background-repeat: no-repeat;
-					background-size: cover;">
-			<div id="spinner">
-				<div class="loader">Loading...</div>
-			</div>
-			<div id="discord" style="display: none;">
-				<div style="    display: flex;
-				justify-content: center;
-				align-items: center;
-				flex-direction: column;
-				background: rgba(0, 0, 0, 0.7);
-				padding: 50px;
-				border-radius: 5px;">
-				<!-- <label for="signup">signup</label> -->
-				<a id="btn-register" class="discord"> 
-						<img src="./img/discord-brands.svg" style="margin-right: 12px;" height="25" width="25" alt="discord">Discord</a>
-				</div>
-			</div>
-		</div>
-        <!-- JS Scripts -->
-      <script src="script.js" type="text/javascript"></script>
+        <div id="app">
+            <div class="container" v-if="show">
+                <h2>Authentication</h2>
+                <p>{{ info }}</p>
+                <button @click="beginAuth">Begin Discord Auth</button>
+            </div>
+            <div class="container" v-if="!show">
+                <div class="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <script src="js/vue.min.js"></script>
+        <script src="js/less.min.js"></script>
+        <script src="app.js" type="text/javascript"></script>
     </body>
 </html>

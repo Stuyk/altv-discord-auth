@@ -4,19 +4,16 @@ import Discord from 'discord.js';
 
 const discordClient = new Discord.Client();
 const config = {
-    botTokenSecret: process.env['BOT_TOKEN_SECRET'],
-    botClientId: process.env['BOT_CLIENT_ID'],
-    roleOwnerId: process.env['BOT_OWNER_ID'],
-    roleWhitelistId: process.env['ROLE_WHITELIST_ID']
+    botTokenSecret: process.env['BOT_SECRET'],
+    serverId: process.env['SERVER_ID'],
+    clientId: process.env['CLIENT_ID'],
+    roleWhitelistId: process.env['ROLE_WHITELIST_ID'],
 };
-
-const url = `https://discord.com/api/oauth2/authorize?client_id=${config.botClientId}&redirect_uri=http%3A%2F%2Fresource%2Fhtml%2Findex.html&response_type=token&scope=identify`;
 
 let whitelist = [];
 let interval;
 
 // Events
-alt.on('discord:BeginAuth', handleBeginAuth);
 discordClient.on('ready', handleReady);
 discordClient.on('error', handleError);
 discordClient.on('rateLimit', handleRateLimit);
@@ -51,7 +48,7 @@ async function handleUserUpdate(user) {
         return;
     }
 
-    const server = discordClient.guilds.cache.get(config.botClientId);
+    const server = discordClient.guilds.cache.get(config.serverId);
     const member = await server.members.fetch(user.id);
 
     if (!member) {
@@ -111,10 +108,6 @@ function refreshWhitelist() {
     }
 
     logAsSuccess(`Refreshed Whitelist. Whitelisted Members: ${members.length}`);
-}
-
-function handleBeginAuth(player) {
-    alt.emitClient(player, 'discord:Auth', url);
 }
 
 discordClient.login(process.env[config.botTokenSecret]);
