@@ -1,3 +1,5 @@
+![](https://i.imgur.com/NXXUOiP.jpg)
+
 # alt:V - Discord Authentication with Toggleable Whitelist
 
 Created by Stuyk (Trevor Wessel)
