@@ -1,4 +1,0 @@
-{
-    "token":"",
-    "connectionURI":"https://discord.com/api/oauth2/authorize?client_id=**************&redirect_uri=http%3A%2F%2Fresources%2Fdiscord%2Fhtml%2Findex.html&response_type=token&scope=identify"
-}

@@ -4,6 +4,8 @@ import * as alt from 'alt-client';
 let view;
 let discordURL;
 
+alt.log('[Test]');
+
 alt.onServer('discord:Auth', handleDiscordAuth);
 alt.onServer('discord:AuthExit', handleAuthExit);
 alt.on('discord:Auth', handleDiscordAuth);
@@ -15,7 +17,7 @@ function handleDiscordAuth(url) {
     }
 
     discordURL = url;
-    view = new alt.WebView('http://resource/html/index.html');
+    view = new alt.WebView('http://resource/client/html/index.html');
     view.on('discord:BearerToken', handleBearerToken);
     view.on('discord:Ready', handleReady);
     view.focus();
@@ -45,7 +47,7 @@ function handleReady() {
 
 function showCursor(state) {
     try {
-        showCursor(state);
+        alt.showCursor(state);
     } catch (err) {
         return;
     }
