@@ -1,0 +1,9 @@
+[
+  "npm install axios",
+  "npm install cors",
+  "npm install discord.js",
+  "npm install dotenv",
+  "npm install download",
+  "npm install express",
+  "npm install sjcl"
+]
