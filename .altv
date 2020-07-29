@@ -1,9 +1,39 @@
 [
-  "npm install axios",
-  "npm install cors",
-  "npm install discord.js",
-  "npm install dotenv",
-  "npm install download",
-  "npm install express",
-  "npm install sjcl"
+  {
+    "type": "package",
+    "name": "axios"
+  },
+  {
+    "type": "package",
+    "name": "cors"
+  },
+  {
+    "type": "package",
+    "name": "discord.js"
+  },
+  {
+    "type": "package",
+    "name": "dotenv"
+  },
+  {
+    "type": "package",
+    "name": "download"
+  },
+  {
+    "type": "package",
+    "name": "express"
+  },
+  {
+    "type": "package",
+    "name": "sjcl",
+    "version": "latest"
+  },
+  {
+    "type": "question",
+    "question": "What is your favorite color?"
+  },
+  {
+    "type": "postinstall",
+    "file": "post.js"
+  }
 ]
