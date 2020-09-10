@@ -1,6 +1,6 @@
 [![](https://i.imgur.com/qzftIlN.jpg)](https://www.youtube.com/watch?v=eJfpeqqeUEY)
 
-# alt:V - Discord Authentication with Toggleable Whitelist
+# alt:V - Discord Authentication with Optional Whitelist
 
 Created by Stuyk (Trevor Wessel)
 
@@ -27,6 +27,8 @@ This resource requires a Discord Developer Application. (Free)
 If you plan on using the whitelist it requires a Discord Bot. (Free)
 
 This also comes with an optional whitelist where you can give players a `role` in order to get into the server. The whitelist automatically updates when you add or remove a role from the user. It also automatically re-parses the whitelist every `60` seconds.
+
+Looking for a traditional login with Username and Password? Try out [alt:V OS Auth](https://github.com/Stuyk/altv-os-auth/).
 
 # Prerequisites
 
