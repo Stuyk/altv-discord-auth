@@ -50,13 +50,13 @@ After simply add the name of this resource to your `server.cfg` resource section
 
 Then simply clone this repository into your main server resources folder.
 
-## Very Important
-Make sure you add `"type": "module"` to your package.json.
-
 ```
 cd resources
 git clone https://github.com/Stuyk/altv-discord-auth
 ```
+
+## Very Important
+Make sure you add `"type": "module"` to your package.json.
 
 # Port Forward
 
