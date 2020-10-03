@@ -181,6 +181,7 @@ Right-Click the role and select `Copy ID`
 
 When a player first joins your server you will want to emit this event. We do not do it for you.
 
+**Server-Side**
 ```js
 alt.on('playerConnect', playerConnect);
 
@@ -195,6 +196,7 @@ The users general Discord Information will be sent to you through an alt event.
 You will also recieve the player which it belongs to.
 The window will automatically close for that user.
 
+**Server-Side**
 ```js
 alt.on('discord:AuthDone', playerAuthDone);
 
