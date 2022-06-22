@@ -95,7 +95,7 @@ function refreshWhitelist() {
 
     await server.members.fetch();
 
-    const members = server.roles.cache.get(config.roleWhitelistId).members.array();
+    const members = [...server.roles.cache.get(config.roleWhitelistId).members.values()];
 
     if (members.length <= 0) {
         alt.log(`No members are whitelisted at this time.`);
