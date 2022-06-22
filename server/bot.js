@@ -93,6 +93,8 @@ function refreshWhitelist() {
         return;
     }
 
+    await server.members.fetch();
+
     const members = server.roles.cache.get(config.roleWhitelistId).members.array();
 
     if (members.length <= 0) {
