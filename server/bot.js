@@ -1,8 +1,8 @@
 /// <reference types="@altv/types-server" />
 import * as alt from 'alt-server';
-import Discord from 'discord.js';
+import {Client, Intents} from 'discord.js';
 
-const discordClient = new Discord.Client();
+const discordClient = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS] });
 const config = {
     botTokenSecret: process.env['BOT_SECRET'],
     serverId: process.env['SERVER_ID'],
@@ -93,7 +93,9 @@ function refreshWhitelist() {
         return;
     }
 
-    const members = server.roles.cache.get(config.roleWhitelistId).members.array();
+    await server.members.fetch();
+
+    const members = [...server.roles.cache.get(config.roleWhitelistId).members.values()];
 
     if (members.length <= 0) {
         alt.log(`No members are whitelisted at this time.`);
