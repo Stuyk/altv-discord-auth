@@ -1,8 +1,8 @@
 /// <reference types="@altv/types-server" />
 import * as alt from 'alt-server';
-import {Client, Intents} from 'discord.js';
+import {Client, GatewayIntentBits } from 'discord.js';
 
-const discordClient = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS] });
+const discordClient = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
 const config = {
     botTokenSecret: process.env['BOT_SECRET'],
     serverId: process.env['SERVER_ID'],
@@ -82,7 +82,7 @@ async function handleUserUpdate(oldUser, user) {
  * 'whitelist' and put them in the array whitelist
  * @returns {void}
  */
-function refreshWhitelist() {
+async function refreshWhitelist() {
     alt.log(`Refreshing Whitelist`);
 
     whitelist = [];
