@@ -6,9 +6,9 @@ import cors from 'cors';
 import path from 'path';
 import { isWhitelistOn, isWhitelisted } from './bot';
 
-const htmlPath = path.join(alt.Resource.name, 'server/html');
-const stylesPath = path.join(alt.Resource.name, 'server/html/styles');
-const jsPaths = path.join(alt.Resource.name, 'server/html/js');
+const htmlPath = path.join(alt.Resource.current.path, 'server/html');
+const stylesPath = path.join(alt.Resource.current.path, 'server/html/styles');
+const jsPaths = path.join(alt.Resource.current.path, 'server/html/js');
 const app = express();
 
 app.use(cors());
