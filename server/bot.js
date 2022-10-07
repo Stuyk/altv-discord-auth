@@ -1,8 +1,9 @@
 /// <reference types="@altv/types-server" />
 import * as alt from 'alt-server';
-import {Client, Intents} from 'discord.js';
+import {Client, GatewayIntentBits } from 'discord.js';
 
-const discordClient = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS] });
+const discordClient = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
+
 const config = {
     botTokenSecret: process.env['BOT_SECRET'],
     serverId: process.env['SERVER_ID'],
@@ -20,15 +21,20 @@ discordClient.on('rateLimit', handleRateLimit);
 discordClient.on('guildMemberUpdate', handleUserUpdate);
 
 function handleReady() {
-    console.log(`[Whitelist] Discord Bot has Authenticated.`);
+    console.log(`[Discord-Auth] Discord Bot has Authenticated.`);
 
-    if (!config.botTokenSecret || !config.serverId || !config.clientId || !config.roleWhitelistId) {
-        console.error(`Configuration is missing. Please setup your .env file.`);
+    if (!config.botTokenSecret || !config.serverId || !config.clientId) {
+        console.error(`[Discord-Auth] Configuration is missing. Please setup your .env file.`);
         return;
     }
-
-    refreshWhitelist();
-    interval = alt.setInterval(refreshWhitelist, 60000);
+    
+    if (isWhitelistOn() && !config.roleWhitelistId) {
+        console.error(`[Discord-Auth] Whitelist role configuration is missing. Please set it up in your .env file.`);
+        return;
+    } else if (isWhitelistOn()) {
+        refreshWhitelist();
+        interval = alt.setInterval(refreshWhitelist, 60000);
+    }
 }
 
 function handleError(err) {
@@ -36,7 +42,7 @@ function handleError(err) {
 }
 
 function handleRateLimit(err) {
-    console.error(`Discord Bot has been Rate Limited. Google 'Rate Limits for Discord'`);
+    console.error(`[Discord-Auth] Discord Bot has been Rate Limited. Google 'Rate Limits for Discord'`);
     console.log(err);
 }
 
@@ -45,7 +51,7 @@ function handleRateLimit(err) {
  * @param  {Discord.User} user
  */
 async function handleUserUpdate(oldUser, user) {
-    if (!user) {
+    if (!user || !config.whitelistEnabled) {
         return;
     }
 
@@ -65,7 +71,7 @@ async function handleUserUpdate(oldUser, user) {
         }
 
         whitelist.splice(index, 1);
-        alt.log(`[Whitelist] ${member.displayName} was removed from the whitelist.`);
+        alt.log(`[Discord-Auth] ${member.displayName} was removed from the whitelist.`);
         return;
     }
 
@@ -74,7 +80,7 @@ async function handleUserUpdate(oldUser, user) {
     }
 
     whitelist.push(user.id);
-    alt.log(`[Whitelist] ${member.displayName} was added to the whitelist.`);
+    alt.log(`[Discord-Auth] ${member.displayName} was added to the whitelist.`);
 }
 
 /**
@@ -82,23 +88,24 @@ async function handleUserUpdate(oldUser, user) {
  * 'whitelist' and put them in the array whitelist
  * @returns {void}
  */
-function refreshWhitelist() {
+async function refreshWhitelist() {
     alt.log(`Refreshing Whitelist`);
 
     whitelist = [];
 
     const server = discordClient.guilds.cache.get(`${config.serverId}`);
     if (!server) {
-        console.error(`Did you forget to invite the bot to your server?`);
+        console.error(`[Discord-Auth] Did you forget to invite the bot to your server?`);
         return;
     }
 
+    // TODO this shit throws errors, doesnt work? who needs whitelist anyway
     await server.members.fetch();
 
     const members = [...server.roles.cache.get(config.roleWhitelistId).members.values()];
 
     if (members.length <= 0) {
-        alt.log(`No members are whitelisted at this time.`);
+        alt.log(`[Discord-Auth] No members are whitelisted at this time.`);
         return;
     }
 
@@ -115,7 +122,7 @@ function refreshWhitelist() {
         whitelist.push(member.user.id);
     }
 
-    alt.log(`Refreshed Whitelist. Whitelisted Members: ${members.length}`);
+    alt.log(`[Discord-Auth] Refreshed Whitelist. Whitelisted Members: ${members.length}`);
 }
 
 export function isWhitelisted(id) {

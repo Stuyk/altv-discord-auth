@@ -32,31 +32,17 @@ Looking for a traditional login with Username and Password? Try out [alt:V OS Au
 -   An Existing or New Gamemode
 -   General Scripting Knowledge
 
-In your base gamemode directory where your `.exe` or `alt-server` files are. Simply run these commands.
-
-```
-npm install axios
-npm install cors
-npm install discord.js
-npm install dotenv
-npm install download
-npm install express
-npm install sjcl
-```
-
 After simply add the name of this resource to your `server.cfg` resource section. It must be named exactly like this.
 
-`altv-discord-auth`
+> `altv-discord-auth`
 
 Then simply clone this repository into your main server resources folder.
-
 ```
 cd resources
 git clone https://github.com/Stuyk/altv-discord-auth
 ```
 
-## Very Important
-Make sure you add `"type": "module"` to your package.json.
+After cloning, navigate to `resources/altv-discord-auth` directory and simply run `npm install` to install needed dependencies.
 
 # Port Forward
 

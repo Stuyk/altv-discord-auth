@@ -17,8 +17,8 @@ const envFileVariables = [
 let allValid = true;
 
 if (!fs.existsSync('.env')) {
-    console.error(`Missing '.env' in your base server directory. Please edit variables.`);
-    console.error(`File was created the file for you.`);
+    console.error(`[Discord-Auth] Missing '.env' in your base server directory. Please edit variables.`);
+    console.error(`[Discord-Auth] File was created the file for you.`);
 
     for (let i = 0; i < envFileVariables.length; i++) {
         const variable = envFileVariables[i];
@@ -38,7 +38,7 @@ if (process.env['ENABLE_WHITELIST'] && process.env['ENABLE_WHITELIST'] !== 'fals
     for (let i = 0; i < envFileVariables.length; i++) {
         if (!process.env[envFileVariables[i]]) {
             console.error(
-                `${envFileVariables[i]} is missing from your '.env' file in your main directory. Read the README.md for instructions.`
+                `[Discord-Auth] ${envFileVariables[i]} is missing from your '.env' file in your main directory. Read the README.md for instructions.`
             );
 
             allValid = false;
@@ -46,33 +46,33 @@ if (process.env['ENABLE_WHITELIST'] && process.env['ENABLE_WHITELIST'] !== 'fals
     }
 
     if (!allValid) {
-        console.error(`Please fix the above errors. Then restart your server.`);
+        console.error(`[Discord-Auth] Please fix the above errors. Then restart your server.`);
         process.exit(1);
     }
 
-    console.log(`[Whitelist] Whitelist is ENABLED.`);
+    console.log(`[Discord-Auth] Whitelist is ENABLED.`);
     import('./bot');
     import('./verify');
     import('./express');
 } else {
     if (!process.env['CLIENT_ID']) {
-        console.error(`CLIENT_ID does not have a value in the '.env' file. Add the value then restart your server.`);
+        console.error(`[Discord-Auth] CLIENT_ID does not have a value in the '.env' file. Add the value then restart your server.`);
         process.exit(1);
     }
 
     if (!process.env['CLIENT_SECRET']) {
         console.error(
-            `CLIENT_SECRET does not have a value in the '.env' file. Add the value then restart your server.`
+            `[Discord-Auth] CLIENT_SECRET does not have a value in the '.env' file. Add the value then restart your server.`
         );
         process.exit(1);
     }
 
     if (!process.env['REDIRECT_IP']) {
-        console.error(`REDIRECT_IP does not have a value in the '.env' file. Add the value then restart your server.`);
+        console.error(`[Discord-Auth] REDIRECT_IP does not have a value in the '.env' file. Add the value then restart your server.`);
         process.exit(1);
     }
 
-    console.log(`[Whitelist] Whitelist is NOT ENABLED. Starting in Discord Auth Only mode.`);
+    console.log(`[Discord-Auth] Whitelist is NOT ENABLED. Starting in Discord Auth Only mode.`);
     import('./verify');
     import('./express');
 }
