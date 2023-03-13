@@ -143,6 +143,6 @@ export function isWhitelistOn() {
     return true;
 }
 
-if (isWhitelistOn) {
+if (isWhitelistOn()) {
     discordClient.login(config.botTokenSecret);
 }
